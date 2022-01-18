@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Dice;
 use App\Models\DiceHand;
 use App\Models\GraphicalDice;
+use App\Models\Highscore;
 
 class GameController extends Controller
 {
@@ -34,6 +35,7 @@ class GameController extends Controller
 
         if ($this->session->get('play.player') == 21) {
             $this->result("Grattis!! Du vann");
+            $this->insertNewScore('Spelare', 21);
         } elseif ($this->session->get('play.player') > 21) {
             $this->result("Du förlorade");
         }
@@ -56,6 +58,16 @@ class GameController extends Controller
             $this->session->put('play.computer', 0);
             $this->session->put('play.result', null);
         }
+    }
+
+    private function insertNewScore($winner, $score): void
+    {
+        $InsertIntoDatabase = Highscore::create([
+            'winner' => $winner,
+            'score' => (int)$score
+        ]);
+
+        $InsertIntoDatabase->save();
     }
 
     private function stop(): void
@@ -84,14 +96,19 @@ class GameController extends Controller
 
         if ($computer == 21) {
             $this->session->put('play.result', "Dator vinner");
+            $this->insertNewScore('Dator', $computer);
         } elseif ($computer > 21) {
             $this->session->put('play.result', "Du vinner");
+            $this->insertNewScore('Spelare', $player);
         } elseif ($player < $computer && $computer < 21) {
             $this->session->put('play.result', "Dator vinner");
+            $this->insertNewScore('Dator', $computer);
         } elseif ($player > $computer && $player < 21) {
             $this->session->put('play.result', "Du vinner");
+            $this->insertNewScore('Spelare', $player);
         } elseif ($player == $computer) {
             $this->session->put('play.result', "Dator vinner");
+            $this->insertNewScore('Dator', $computer);
         }
     }
 
@@ -140,6 +157,7 @@ class GameController extends Controller
         $this->session->put('play.player', 0);
         $this->session->put('play.computer', 0);
     }
+
 
     public function destroyGame(Request $request)
     {
