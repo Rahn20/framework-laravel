@@ -21,6 +21,31 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
+## START
+```
+#start
+php artiscan serve
+
+#Generate a model
+php artisan make:model model-name
+
+#Generate a controller
+php artisan make:controller controller-name
+
+#DATABASE
+#Generate a migration
+php artisan make:migration migration-name
+
+php artisan migrate
+
+#Connecting To The Database CLI
+php artisan db
+
+#drop last migrated table
+php artisan migrate:rollback
+
+```
+
 ## Learning Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
