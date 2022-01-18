@@ -46,3 +46,27 @@ footer {
     min-height: 4em;
     text-align: center;
 }
+
+/* highscore-page */
+.highscore-table td {
+    padding: 7px;
+    border-bottom: 1px outset #ccc;
+}
+
+.highscore-table th {
+    padding: 7px;
+}
+
+.highscore-table a {
+    border: 1px solid #000;
+    background-color: rgb(195, 20, 20);
+    color: #fff;
+    padding: 4px;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+.highscore-table a:hover {
+    border: 3px solid #ccc;
+    background-color: rgb(231, 10, 10);
+}
